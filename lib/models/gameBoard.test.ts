@@ -65,30 +65,3 @@ test("GameBoardModel receiveAttack", () => {
   expect(shipHitted?.hits).toBe(1);
   expect(gameBoard.grid.length).toBe(100);
 });
-test("GameBoardModel receiveAttack", () => {
-  const gameBoard = new GameBoardModel();
-  gameBoard.setNewShip({
-    coords: [
-      { x: 1, y: 1 },
-      { x: 2, y: 1 },
-      { x: 3, y: 1 },
-    ],
-    id: 1,
-    lenght: 3,
-    hits: 3,
-    sunk: true,
-  });
-  gameBoard.setNewShip({
-    coords: [
-      { x: 1, y: 1 },
-      { x: 2, y: 1 },
-      { x: 3, y: 1 },
-    ],
-    id: 2,
-    lenght: 3,
-    hits: 3,
-    sunk: true,
-  });
-
-  expect(gameBoard.checkGameStatus()).toBe(true);
-});

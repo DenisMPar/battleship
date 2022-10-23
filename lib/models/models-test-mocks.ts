@@ -100,3 +100,48 @@ export const gridMock = [
   { x: 9, y: 10, isHitted: false },
   { x: 10, y: 10, isHitted: false },
 ];
+
+export const shipMock1 = {
+  coords: [
+    { x: 1, y: 5 },
+    { x: 1, y: 6 },
+    { x: 1, y: 7 },
+  ],
+  id: 1,
+  lenght: 3,
+  hits: 0,
+  sunk: false,
+};
+export const shipMock2 = {
+  coords: [
+    { x: 1, y: 1 },
+    { x: 2, y: 1 },
+    { x: 3, y: 1 },
+  ],
+  id: 2,
+  lenght: 3,
+  hits: 0,
+  sunk: false,
+};
+export const shipMock3 = {
+  coords: [
+    { x: 3, y: 2 },
+    { x: 4, y: 2 },
+    { x: 5, y: 2 },
+  ],
+  id: 3,
+  lenght: 3,
+  hits: 0,
+  sunk: false,
+};
+export const shipMock4 = {
+  coords: [
+    { x: 7, y: 3 },
+    { x: 8, y: 3 },
+    { x: 9, y: 3 },
+  ],
+  id: 4,
+  lenght: 3,
+  hits: 0,
+  sunk: false,
+};

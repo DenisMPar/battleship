@@ -5,7 +5,7 @@ import { ShipModel, ShipProps } from "./ship";
 //   shipsLocations: { x: number; y: number; shipId: number; isHitted: boolean }[];
 //   boats: ShipProps[];
 // }
-type CoordsValue = {
+export type CoordsValue = {
   x: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   y: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 };
@@ -65,5 +65,8 @@ export class GameBoardModel {
   }
   checkGameStatus() {
     if (this.ships.every((ship) => ship.sunk === true)) this.gameOver = true;
+  }
+  getGameStatus() {
+    return this.gameOver;
   }
 }
