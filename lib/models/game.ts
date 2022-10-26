@@ -4,6 +4,10 @@ import {
   shipMock2,
   shipMock3,
   shipMock4,
+  shipMock5,
+  shipMock6,
+  shipMock7,
+  shipMock8,
 } from "./models-test-mocks";
 import { PlayerModel } from "./player";
 interface GameModelProps {
@@ -28,10 +32,10 @@ export class GameModel {
     this.player1.board.setNewShip(shipMock3);
     this.player1.board.setNewShip(shipMock4);
 
-    this.player2.board.setNewShip(shipMock1);
-    this.player2.board.setNewShip(shipMock2);
-    this.player2.board.setNewShip(shipMock3);
-    this.player2.board.setNewShip(shipMock4);
+    this.player2.board.setNewShip(shipMock5);
+    this.player2.board.setNewShip(shipMock6);
+    this.player2.board.setNewShip(shipMock7);
+    this.player2.board.setNewShip(shipMock8);
   }
   getPlayer1() {
     return this.player1;

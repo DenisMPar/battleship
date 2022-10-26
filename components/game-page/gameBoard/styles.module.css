@@ -1,0 +1,21 @@
+.root{
+    height: 400px;
+    width: 400px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+.case, .ship{
+    height: 100%;
+    width: 100%;
+}
+.case{
+    background-color: brown;
+    border: solid 1px black;
+}
+.ship{
+    background-color:cornflowerblue;
+    border: solid 1px black;
+}

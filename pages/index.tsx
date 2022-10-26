@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { Lobby } from "../components/lobby-page";
 
 const Home: NextPage = () => {
   return (
     <div>
-      Home!
-      <Link href={"/game"}>Go to game</Link>
+      <h1>BattleShip</h1>
+      <Lobby></Lobby>
     </div>
   );
 };

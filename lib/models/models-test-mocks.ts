@@ -145,3 +145,47 @@ export const shipMock4 = {
   hits: 0,
   sunk: false,
 };
+export const shipMock5 = {
+  coords: [
+    { x: 1, y: 5 },
+    { x: 1, y: 6 },
+    { x: 1, y: 7 },
+  ],
+  id: 5,
+  lenght: 3,
+  hits: 0,
+  sunk: false,
+};
+export const shipMock6 = {
+  coords: [
+    { x: 1, y: 1 },
+    { x: 2, y: 1 },
+    { x: 3, y: 1 },
+  ],
+  id: 6,
+  lenght: 3,
+  hits: 0,
+  sunk: false,
+};
+export const shipMock7 = {
+  coords: [
+    { x: 3, y: 2 },
+    { x: 4, y: 2 },
+    { x: 5, y: 2 },
+  ],
+  id: 7,
+  lenght: 3,
+  hits: 0,
+  sunk: false,
+};
+export const shipMock8 = {
+  coords: [
+    { x: 7, y: 3 },
+    { x: 8, y: 3 },
+    { x: 9, y: 3 },
+  ],
+  id: 8,
+  lenght: 3,
+  hits: 0,
+  sunk: false,
+};
