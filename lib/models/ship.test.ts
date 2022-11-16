@@ -6,8 +6,8 @@ const testShip = new ShipModel({
     { x: 1, y: 6 },
     { x: 1, y: 7 },
   ],
-  id: 1,
-  lenght: 3,
+  id: "1",
+  length: 3,
   hits: 3,
   sunk: false,
 });
@@ -17,8 +17,8 @@ const testShip2 = new ShipModel({
     { x: 2, y: 3 },
     { x: 3, y: 3 },
   ],
-  id: 2,
-  lenght: 3,
+  id: "2",
+  length: 3,
   hits: 2,
   sunk: false,
 });

@@ -1,5 +1,6 @@
 import { GameModel } from "./game";
 import { PlayerModel } from "./player";
+import { ShipModel } from "./ship";
 
 test("GameModel get player1", () => {
   const game = new GameModel({
@@ -24,29 +25,53 @@ test("GameModel Player1 shipsSetted", () => {
     player1Name: "userName1",
     player2Name: "userName2",
   });
+  game.player1.board.setNewShip({
+    coords: { x: 1, y: 1 },
+    orientation: "horizontal",
+    length: 5,
+    nanoId: () => "123",
+  });
+  game.player1.board.setNewShip({
+    coords: { x: 4, y: 2 },
+    orientation: "horizontal",
+    length: 3,
+    nanoId: () => "123",
+  });
+  game.player1.board.setNewShip({
+    coords: { x: 5, y: 1 },
+    orientation: "vertical",
+    length: 2,
+    nanoId: () => "123",
+  });
+  game.player1.board.setNewShip({
+    coords: { x: 1, y: 8 },
+    orientation: "horizontal",
+    length: 3,
+    nanoId: () => "123",
+  });
   expect(game.player1.board.grid).toContainEqual({
-    x: 1,
-    y: 5,
+    x: 4,
+    y: 2,
+    shipId: "123",
     isHitted: false,
-    shipId: 1,
   });
   expect(game.player1.board.grid).toContainEqual({
     x: 1,
     y: 1,
+    shipId: "123",
     isHitted: false,
-    shipId: 2,
   });
   expect(game.player1.board.grid).toContainEqual({
-    x: 3,
-    y: 2,
+    x: 5,
+    y: 1,
+    shipId: "123",
     isHitted: false,
-    shipId: 3,
   });
   expect(game.player1.board.grid).toContainEqual({
-    x: 7,
-    y: 3,
+    x: 1,
+    y: 8,
+    shipId: "123",
     isHitted: false,
-    shipId: 4,
   });
 });
 test("GameModel Player2 shipsSetted", () => {
@@ -54,29 +79,53 @@ test("GameModel Player2 shipsSetted", () => {
     player1Name: "userName1",
     player2Name: "userName2",
   });
+  game.player2.board.setNewShip({
+    coords: { x: 1, y: 1 },
+    orientation: "horizontal",
+    length: 5,
+    nanoId: () => "123",
+  });
+  game.player2.board.setNewShip({
+    coords: { x: 4, y: 2 },
+    orientation: "horizontal",
+    length: 3,
+    nanoId: () => "123",
+  });
+  game.player2.board.setNewShip({
+    coords: { x: 5, y: 1 },
+    orientation: "vertical",
+    length: 2,
+    nanoId: () => "123",
+  });
+  game.player2.board.setNewShip({
+    coords: { x: 1, y: 8 },
+    orientation: "horizontal",
+    length: 3,
+    nanoId: () => "123",
+  });
   expect(game.player2.board.grid).toContainEqual({
-    x: 1,
-    y: 5,
+    x: 4,
+    y: 2,
+    shipId: "123",
     isHitted: false,
-    shipId: 1,
   });
   expect(game.player2.board.grid).toContainEqual({
     x: 1,
     y: 1,
+    shipId: "123",
     isHitted: false,
-    shipId: 2,
   });
   expect(game.player2.board.grid).toContainEqual({
-    x: 3,
-    y: 2,
+    x: 5,
+    y: 1,
+    shipId: "123",
     isHitted: false,
-    shipId: 3,
   });
   expect(game.player2.board.grid).toContainEqual({
-    x: 7,
-    y: 3,
+    x: 1,
+    y: 8,
+    shipId: "123",
     isHitted: false,
-    shipId: 4,
   });
 });
 test("GameModel nextPlayer", () => {

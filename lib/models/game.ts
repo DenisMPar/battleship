@@ -1,4 +1,5 @@
 import { CoordsValue } from "./gameBoard";
+import { nanoid } from "nanoid";
 import {
   shipMock1,
   shipMock2,
@@ -10,10 +11,16 @@ import {
   shipMock8,
 } from "./models-test-mocks";
 import { PlayerModel } from "./player";
+import { ShipModel } from "./ship";
+import { generateRandomIntegerInRange } from "../functions";
 interface GameModelProps {
   player1Name: string;
   player2Name: string;
 }
+interface RandomShipProps {
+  nano: () => string;
+}
+
 export class GameModel {
   player1: PlayerModel;
   player2: PlayerModel;
@@ -26,16 +33,6 @@ export class GameModel {
     this.player2 = new PlayerModel(gameData.player2Name);
     this.currentPlayer = "player1";
     this.defender = "player2";
-
-    this.player1.board.setNewShip(shipMock1);
-    this.player1.board.setNewShip(shipMock2);
-    this.player1.board.setNewShip(shipMock3);
-    this.player1.board.setNewShip(shipMock4);
-
-    this.player2.board.setNewShip(shipMock5);
-    this.player2.board.setNewShip(shipMock6);
-    this.player2.board.setNewShip(shipMock7);
-    this.player2.board.setNewShip(shipMock8);
   }
   getPlayer1() {
     return this.player1;

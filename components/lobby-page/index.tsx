@@ -13,6 +13,7 @@ export function Lobby(): ReactElement {
     });
     Router.push("/game");
   }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>

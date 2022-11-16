@@ -10,12 +10,20 @@
 .case, .ship{
     height: 100%;
     width: 100%;
+    border: solid 1px black;
 }
 .case{
     background-color: brown;
-    border: solid 1px black;
+}
+.case-hitted{
+    background-color:black;
+    
 }
 .ship{
     background-color:cornflowerblue;
-    border: solid 1px black;
+    
+}
+.ship-hitted{
+    background-color:red;
+    
 }
