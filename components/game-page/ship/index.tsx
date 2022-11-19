@@ -17,7 +17,7 @@ export function Ship1(props: Props) {
       onDragStart={handleDrag}
       style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship
+      ship1
     </div>
   );
 }
@@ -38,7 +38,7 @@ export function Ship2(props: Props) {
       onDragStart={handleDrag}
       style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship
+      ship2
     </div>
   );
 }
@@ -54,7 +54,7 @@ export function Ship3(props: Props) {
       onDragStart={handleDrag}
       style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship
+      ship3
     </div>
   );
 }
@@ -70,7 +70,7 @@ export function Ship4(props: Props) {
       onDragStart={handleDrag}
       style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship
+      ship4
     </div>
   );
 }
@@ -86,7 +86,7 @@ export function Ship5(props: Props) {
       onDragStart={handleDrag}
       style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship
+      ship5
     </div>
   );
 }

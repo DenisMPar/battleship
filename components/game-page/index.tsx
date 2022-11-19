@@ -26,6 +26,13 @@ export function GamePage({ game }: Props): ReactElement {
   const [player1Grid, setPlayer1Grid] = useState<any>();
   const [player2Grid, setPlayer2Grid] = useState<any>();
   const [selectedShipLength, setSelectedShipLength] = useState<number>(0);
+  const [shipsSettedPlayer1, setShipsSettedPlayer1] = useState<number[]>([]);
+  const [shipsSettedPlayer2, setShipsSettedPlayer2] = useState<number[]>([]);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [gameFinished, setGameFinished] = useState(false);
+  const [currentPlayer, setCurrentPlayer] = useState<"player2" | "player1">(
+    "player1"
+  );
 
   useEffect(() => {
     setPlayer1Grid(game.player1.board.grid as any);
@@ -36,6 +43,8 @@ export function GamePage({ game }: Props): ReactElement {
     const grid = props.player === "player1" ? player1Grid : player2Grid;
     const board =
       props.player === "player1" ? game.player1.board : game.player2.board;
+    const setGrid =
+      props.player === "player1" ? setPlayer1Grid : setPlayer2Grid;
     const res = lodash.find(grid, (el: any) => {
       return el.x == props.coords.x && el.y == props.coords.y;
     });
@@ -54,11 +63,11 @@ export function GamePage({ game }: Props): ReactElement {
             if (!props.leave) {
               grid[index + i].type = 2;
               const newGrid = structuredClone(grid);
-              setPlayer1Grid(newGrid);
+              setGrid(newGrid);
             } else {
               grid[index + i].type = 1;
               const newGrid = structuredClone(grid);
-              setPlayer1Grid(newGrid);
+              setGrid(newGrid);
             }
           }
         }
@@ -70,11 +79,11 @@ export function GamePage({ game }: Props): ReactElement {
             if (props.leave) {
               grid[index + i * 10].type = 1;
               const newGrid = structuredClone(grid);
-              setPlayer1Grid(newGrid);
+              setGrid(newGrid);
             } else {
               grid[index + i * 10].type = 2;
               const newGrid = structuredClone(grid);
-              setPlayer1Grid(newGrid);
+              setGrid(newGrid);
             }
           }
         }
@@ -91,9 +100,10 @@ export function GamePage({ game }: Props): ReactElement {
     if (res === true) {
       const newGrid = structuredClone(grid);
       if (props.player === "player1") {
+        setShipsSettedPlayer1([...shipsSettedPlayer1, props.length]);
         setPlayer1Grid(newGrid as any);
       } else {
-        setPlayer2Grid(newGrid as any);
+        setShipsSettedPlayer2([...shipsSettedPlayer2, props.length]);
       }
       return { res };
     } else {
@@ -101,33 +111,164 @@ export function GamePage({ game }: Props): ReactElement {
       return { res };
     }
   }
+  function handleNext(player: "player1" | "player2") {
+    const board =
+      player === "player1" ? game.player1.board : game.player2.board;
+    if (player == "player1") {
+      game.player1.board.hideShips();
+      const newGrid = structuredClone(game.player1.board.grid);
+      setPlayer1Grid(newGrid as any);
+
+      setCurrentPlayer("player2");
+      console.log("setted");
+    }
+    if (player == "player2") {
+      console.log("next");
+
+      game.player2.board.hideShips();
+      const newGrid = structuredClone(game.player2.board.grid);
+      setPlayer2Grid(newGrid as any);
+
+      setGameStarted(true);
+      setCurrentPlayer("player1");
+    }
+  }
+
+  function handleCaseClick(props: {
+    coords: { x: number; y: number };
+    player: string;
+  }) {
+    const setGrid =
+      props.player === "player1" ? setPlayer1Grid : setPlayer2Grid;
+    const board =
+      props.player === "player1" ? game.player1.board : game.player2.board;
+
+    const { grid, hitted } = board.receiveAttack(props.coords);
+    const newGrid = structuredClone(grid);
+    setGrid(newGrid);
+    const isGameFinished = board.getGameStatus();
+    if (isGameFinished) {
+      setGameFinished(true);
+    }
+    if (!hitted) {
+      props.player == "player1"
+        ? setCurrentPlayer("player2")
+        : setCurrentPlayer("player1");
+    }
+  }
 
   return (
-    <div className={styles.root}>
-      <Ship1 setLength={setSelectedShipLength}></Ship1>
-      <Ship2 setLength={setSelectedShipLength}></Ship2>
-      <Ship3 setLength={setSelectedShipLength}></Ship3>
-      <Ship4 setLength={setSelectedShipLength}></Ship4>
-      <Ship5 setLength={setSelectedShipLength}></Ship5>
-      <div>
-        <h2>{game.player1.name}</h2>
-        <GameBoardComp
-          shipLength={selectedShipLength}
-          checkHover={checkHover}
-          player="player1"
-          grid={player1Grid}
-          setShip={setShip}
-        ></GameBoardComp>
+    <>
+      {gameFinished ? (
+        <div
+          style={{
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
+            zIndex: "99",
+            backgroundColor: `rgba(0, 0, 0, 0.2)`,
+          }}
+        >
+          <h1 style={{ color: "white" }}>Juego terminado!</h1>
+        </div>
+      ) : null}
+      <div className={styles.root}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          {!shipsSettedPlayer1.includes(5) ? (
+            <Ship1 setLength={setSelectedShipLength}></Ship1>
+          ) : null}
+          {!shipsSettedPlayer1.includes(4) ? (
+            <Ship2 setLength={setSelectedShipLength}></Ship2>
+          ) : null}
+          {!shipsSettedPlayer1.includes(3) ? (
+            <Ship3 setLength={setSelectedShipLength}></Ship3>
+          ) : null}
+          {!shipsSettedPlayer1.includes(2) ? (
+            <Ship4 setLength={setSelectedShipLength}></Ship4>
+          ) : null}
+          {!shipsSettedPlayer1.includes(1) ? (
+            <Ship5 setLength={setSelectedShipLength}></Ship5>
+          ) : null}
+        </div>
+        <div>
+          <h2>{game.player1.name}</h2>
+          <GameBoardComp
+            handleClick={handleCaseClick}
+            gameStarted={gameStarted}
+            currentPlayer={currentPlayer}
+            shipLength={selectedShipLength}
+            checkHover={checkHover}
+            player="player1"
+            grid={player1Grid}
+            setShip={setShip}
+          ></GameBoardComp>
+          <button
+            disabled={
+              shipsSettedPlayer1.length == 5 && currentPlayer == "player1"
+                ? false
+                : true
+            }
+            onClick={() => handleNext("player1")}
+          >
+            next
+          </button>
+        </div>
+        {currentPlayer == "player2" ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: "10px",
+            }}
+          >
+            {!shipsSettedPlayer2.includes(5) ? (
+              <Ship1 setLength={setSelectedShipLength}></Ship1>
+            ) : null}
+            {!shipsSettedPlayer2.includes(4) ? (
+              <Ship2 setLength={setSelectedShipLength}></Ship2>
+            ) : null}
+            {!shipsSettedPlayer2.includes(3) ? (
+              <Ship3 setLength={setSelectedShipLength}></Ship3>
+            ) : null}
+            {!shipsSettedPlayer2.includes(2) ? (
+              <Ship4 setLength={setSelectedShipLength}></Ship4>
+            ) : null}
+            {!shipsSettedPlayer2.includes(1) ? (
+              <Ship5 setLength={setSelectedShipLength}></Ship5>
+            ) : null}
+          </div>
+        ) : null}
+        <div>
+          <h2>{game.player2.name}</h2>
+          <GameBoardComp
+            handleClick={handleCaseClick}
+            gameStarted={gameStarted}
+            currentPlayer={currentPlayer}
+            shipLength={selectedShipLength}
+            checkHover={checkHover}
+            player="player2"
+            grid={player2Grid}
+            setShip={setShip}
+          ></GameBoardComp>
+          <button
+            disabled={shipsSettedPlayer2.length == 5 ? false : true}
+            onClick={() => handleNext("player2")}
+          >
+            next
+          </button>
+        </div>
       </div>
-      {/* <div>
-        <h2>{game.player2.name}</h2>
-        <GameBoardComp
-          checkHover={checkHover}
-          player="player2"
-          grid={player2Grid}
-          setShip={setShip}
-        ></GameBoardComp>
-      </div> */}
-    </div>
+    </>
   );
 }

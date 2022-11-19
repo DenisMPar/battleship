@@ -1,12 +1,10 @@
-import React, { DragEvent, useEffect, useState } from "react";
+import { DragEvent, useState } from "react";
 
-import { ItemTypes } from "../../draggableItems";
-import { useDrop } from "react-dnd";
-import { CheckHoverProps, SetNewShipProps } from "../..";
 import { nanoid } from "nanoid";
-import { Ship1 } from "../../ship";
 import { useRecoilValue } from "recoil";
+import { CheckHoverProps, SetNewShipProps } from "../..";
 import { shipLengthStatus } from "../../../../hooks/state";
+import { CoordsValue } from "../../../../lib/models/gameBoard";
 
 interface Props {
   setShip: (props: SetNewShipProps) =>
@@ -15,11 +13,15 @@ interface Props {
       }
     | {
         res: "Ships overlapped" | "out of grid";
-      };
+      }
+    | undefined;
   coords: { x: number; y: number };
   shipLength: number;
   orientation: "horizontal" | "vertical";
   player: "player1" | "player2";
+  currentPlayer: "player1" | "player2";
+  gameStarted: boolean;
+  handleClick: any;
   type: any;
   onHover: (coords: CheckHoverProps) => void;
 }
@@ -35,65 +37,50 @@ export function GameBoardCase(props: Props) {
   const [isShipSetted, setIsShipSetted] = useState(false);
   const shipLength = useRecoilValue(shipLengthStatus);
   function handleDrop(e: DragEvent<HTMLDivElement>) {
-    props.setShip({
-      coords: props.coords,
-      length: shipLength,
-      player: props.player,
-      orientation: props.orientation,
-      nanoId: nanoid,
-    });
-  }
-  function handleDragEnter(e: DragEvent<HTMLDivElement>) {
-    setTimeout(() => {
-      props.onHover({
+    if (props.player == props.currentPlayer) {
+      props.setShip({
         coords: props.coords,
-        shipLength: shipLength,
+        length: shipLength,
         player: props.player,
         orientation: props.orientation,
+        nanoId: nanoid,
       });
-    }, 1);
+    }
+  }
+  function handleDragEnter(e: DragEvent<HTMLDivElement>) {
+    if (props.player == props.currentPlayer) {
+      setTimeout(() => {
+        props.onHover({
+          coords: props.coords,
+          shipLength: shipLength,
+          player: props.player,
+          orientation: props.orientation,
+        });
+      }, 1);
+    }
   }
 
   function handleDragLeave() {
-    props.onHover({
-      coords: props.coords,
-      shipLength: shipLength,
-      orientation: props.orientation,
-      player: props.player,
-      leave: true,
-    });
+    if (props.player == props.currentPlayer) {
+      props.onHover({
+        coords: props.coords,
+        shipLength: shipLength,
+        orientation: props.orientation,
+        player: props.player,
+        leave: true,
+      });
+    }
   }
-
-  // const [{ isOver, type }, drop] = useDrop(
-  //   () => ({
-  //     accept: ItemTypes.SHIP1,
-  //     drop: (item: any, monitor) => {
-  //       props.setShip({
-  //         coords: props.coords,
-  //         length: props.shipLength,
-  //
-  //         player: props.player,
-  //         nanoId: nanoid,
-  //       });
-  //     },
-  //     hover: (item, monitor) => {
-  //       props.onHover({
-  //         coords: props.coords,
-  //
-  //         shipLength: 5,
-  //         player: props.player,
-  //       });
-  //     },
-  //     collect: (monitor) => ({
-  //       isOver: !!monitor.isOver({ shallow: true }),
-  //       type: monitor.getItemType(),
-  //     }),
-  //   }),
-  //   [props]
-  // );
+  function handleClick() {
+    if (props.player == props.currentPlayer && props.gameStarted) {
+      props.handleClick({ coords: props.coords, player: props.player });
+    }
+  }
 
   return isShipSetted ? null : (
     <div
+      draggable={false}
+      onClick={handleClick}
       onDragEnter={(e) => {
         handleDragEnter(e);
       }}

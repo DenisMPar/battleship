@@ -6,6 +6,7 @@ import { useDrop } from "react-dnd";
 import style from "./styles.module.css";
 import { GameBoardCase } from "./gamboardCase";
 import lodash from "lodash";
+import { CoordsValue } from "../../../lib/models/gameBoard";
 interface Props {
   grid: any;
   setShip: (props: SetNewShipProps) =>
@@ -14,8 +15,12 @@ interface Props {
       }
     | {
         res: "Ships overlapped" | "out of grid";
-      };
+      }
+    | undefined;
   player: "player1" | "player2";
+  currentPlayer: "player1" | "player2";
+  handleClick: any;
+  gameStarted: boolean;
   checkHover: (props: CheckHoverProps) => void;
   shipLength: number;
 }
@@ -29,7 +34,13 @@ export function GameBoardComp(props: Props): ReactElement {
   useEffect(() => {
     const newGrid = createGrid();
     setGrid(newGrid as any);
-  }, [props.grid, orientation]);
+  }, [
+    props.grid,
+    orientation,
+    props.currentPlayer,
+    props.gameStarted,
+    props.handleClick,
+  ]);
 
   function createGrid() {
     const divs = [];
@@ -41,6 +52,9 @@ export function GameBoardComp(props: Props): ReactElement {
         for (let x = 1; x <= 10; x++) {
           divs.push(
             <GameBoardCase
+              handleClick={props.handleClick}
+              gameStarted={props.gameStarted}
+              currentPlayer={props.currentPlayer}
               orientation={orientation}
               shipLength={props.shipLength}
               onHover={props.checkHover}

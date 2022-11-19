@@ -116,24 +116,45 @@ export class GameBoardModel {
     return true;
   }
 
-  receiveAttack(coords: CoordsValue) {
+  getGrid() {
+    return this.grid;
+  }
+
+  hideShips() {
+    this.grid.forEach((el) => {
+      if (el.type != 1) {
+        el.type = 1;
+      }
+    });
+  }
+
+  receiveAttack(coords: { x: number; y: number }) {
     const indexOfCoord = this.grid.findIndex(
       (gridCoord) => gridCoord.x === coords.x && gridCoord.y === coords.y
     );
     this.grid[indexOfCoord].isHitted = true;
     //if the coords belongs to a ship must add a hit
+    let hitted;
     if (this.grid[indexOfCoord].shipId) {
+      this.grid[indexOfCoord].type = 3;
       const shipId = this.grid[indexOfCoord].shipId;
       const shipHitted = this.ships.find((ship) => ship.id == shipId);
-
       shipHitted?.hit();
+      hitted = true;
+    } else {
+      this.grid[indexOfCoord].type = 4;
+      hitted = false;
     }
+
     this.checkGameStatus();
+    return { grid: this.grid, hitted };
   }
   checkGameStatus() {
     if (this.ships.every((ship) => ship.sunk === true)) this.gameOver = true;
   }
   getGameStatus() {
+    console.log({ ships: this.ships });
+
     return this.gameOver;
   }
 }

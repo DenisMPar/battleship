@@ -21,14 +21,8 @@ export class ShipModel {
   }
   hit() {
     this.hits++;
-    return this.hits;
-  }
-  isSunk() {
     if (this.length === this.hits) {
       this.sunk = true;
-      return true;
-    } else {
-      return false;
     }
   }
 }

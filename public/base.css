@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
+*{
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Aldrich', sans-serif;
+}
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }
+  
+:root{
+    --main-color:#ef4343;
+    --main-color-hover:#ec6262;
+    --input-bg:#383737;
+}
