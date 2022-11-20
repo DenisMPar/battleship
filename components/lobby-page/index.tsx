@@ -23,9 +23,9 @@ export function Lobby(): ReactElement {
       <MainContainer>
         <Form onSubmit={handleSubmit}>
           <BigLabel>Player 1 name:</BigLabel>
-          <Input type={"text"} name={"player1Name"}></Input>
+          <Input type={"text"} name={"player1Name"} required={true}></Input>
           <BigLabel>Player 2 name:</BigLabel>
-          <Input type={"text"} name={"player2Name"}></Input>
+          <Input type={"text"} name={"player2Name"} required={true}></Input>
           <br />
           <ButtonContainer>
             <MainButton>Iniciar</MainButton>

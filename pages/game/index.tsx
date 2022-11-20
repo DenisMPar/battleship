@@ -12,7 +12,9 @@ const Game: NextPage = () => {
   });
 
   return (
-    <div>
+    <div
+      style={{ backgroundColor: `var(--bg)`, height: "100%", width: "100%" }}
+    >
       <GamePage game={game}></GamePage>
     </div>
   );

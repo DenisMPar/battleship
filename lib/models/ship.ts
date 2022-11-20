@@ -23,6 +23,7 @@ export class ShipModel {
     this.hits++;
     if (this.length === this.hits) {
       this.sunk = true;
+      return true;
     }
   }
 }

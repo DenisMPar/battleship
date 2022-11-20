@@ -1,8 +1,11 @@
 import { useRecoilState } from "recoil";
+import { Ship1Icon } from "ui/icons";
 import { shipLengthStatus } from "../../../hooks/state";
+import { ShipContainer } from "./styled";
 
 interface Props {
   setLength: (length: number) => void;
+  player: "player1" | "player2";
 }
 
 export function Ship1(props: Props) {
@@ -12,18 +15,14 @@ export function Ship1(props: Props) {
   }
 
   return (
-    <div
+    <ShipContainer
+      player={props.player}
       draggable={true}
       onDragStart={handleDrag}
-      style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship1
-    </div>
+      <Ship1Icon />
+    </ShipContainer>
   );
-}
-
-interface Props {
-  setLength: (length: number) => void;
 }
 
 export function Ship2(props: Props) {
@@ -33,13 +32,13 @@ export function Ship2(props: Props) {
   }
 
   return (
-    <div
+    <ShipContainer
+      player={props.player}
       draggable={true}
       onDragStart={handleDrag}
-      style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship2
-    </div>
+      <Ship1Icon />
+    </ShipContainer>
   );
 }
 export function Ship3(props: Props) {
@@ -49,13 +48,13 @@ export function Ship3(props: Props) {
   }
 
   return (
-    <div
+    <ShipContainer
+      player={props.player}
       draggable={true}
       onDragStart={handleDrag}
-      style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship3
-    </div>
+      <Ship1Icon />
+    </ShipContainer>
   );
 }
 export function Ship4(props: Props) {
@@ -65,13 +64,13 @@ export function Ship4(props: Props) {
   }
 
   return (
-    <div
+    <ShipContainer
+      player={props.player}
       draggable={true}
       onDragStart={handleDrag}
-      style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship4
-    </div>
+      <Ship1Icon />
+    </ShipContainer>
   );
 }
 export function Ship5(props: Props) {
@@ -81,12 +80,12 @@ export function Ship5(props: Props) {
   }
 
   return (
-    <div
+    <ShipContainer
+      player={props.player}
       draggable={true}
       onDragStart={handleDrag}
-      style={{ width: "40px", height: "40px", backgroundColor: "red" }}
     >
-      ship5
-    </div>
+      <Ship1Icon />
+    </ShipContainer>
   );
 }

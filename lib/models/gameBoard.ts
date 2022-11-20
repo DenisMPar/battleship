@@ -139,8 +139,15 @@ export class GameBoardModel {
       this.grid[indexOfCoord].type = 3;
       const shipId = this.grid[indexOfCoord].shipId;
       const shipHitted = this.ships.find((ship) => ship.id == shipId);
-      shipHitted?.hit();
+      const res = shipHitted?.hit();
       hitted = true;
+      if (res) {
+        const sunkShipCoords = lodash.filter(
+          this.grid,
+          (el) => el.shipId == this.grid[indexOfCoord].shipId
+        );
+        sunkShipCoords.forEach((el) => (el.type = 5));
+      }
     } else {
       this.grid[indexOfCoord].type = 4;
       hitted = false;

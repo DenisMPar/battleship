@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import { CheckHoverProps, SetNewShipProps } from "../..";
 import { shipLengthStatus } from "../../../../hooks/state";
 import { CoordsValue } from "../../../../lib/models/gameBoard";
+import { CaseStyled } from "./styled";
 
 interface Props {
   setShip: (props: SetNewShipProps) =>
@@ -72,13 +73,15 @@ export function GameBoardCase(props: Props) {
     }
   }
   function handleClick() {
-    if (props.player == props.currentPlayer && props.gameStarted) {
+    if (props.player != props.currentPlayer && props.gameStarted) {
       props.handleClick({ coords: props.coords, player: props.player });
     }
   }
 
   return isShipSetted ? null : (
-    <div
+    <CaseStyled
+      player={props.player}
+      type={props.type}
       draggable={false}
       onClick={handleClick}
       onDragEnter={(e) => {
@@ -87,13 +90,6 @@ export function GameBoardCase(props: Props) {
       onDragLeave={handleDragLeave}
       onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => handleDrop(e)}
-      style={{
-        backgroundColor: caseTypes[props.type],
-        border: "solid 1px black",
-        position: "relative",
-        width: "100%",
-        height: "100%",
-      }}
-    ></div>
+    ></CaseStyled>
   );
 }

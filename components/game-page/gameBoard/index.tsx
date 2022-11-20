@@ -21,22 +21,20 @@ interface Props {
   currentPlayer: "player1" | "player2";
   handleClick: any;
   gameStarted: boolean;
+  orientation: "vertical" | "horizontal";
   checkHover: (props: CheckHoverProps) => void;
   shipLength: number;
 }
 
 export function GameBoardComp(props: Props): ReactElement {
   const [grid, setGrid] = useState<any>([]);
-  const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
-    "vertical"
-  );
 
   useEffect(() => {
     const newGrid = createGrid();
     setGrid(newGrid as any);
   }, [
     props.grid,
-    orientation,
+    props.orientation,
     props.currentPlayer,
     props.gameStarted,
     props.handleClick,
@@ -55,7 +53,7 @@ export function GameBoardComp(props: Props): ReactElement {
               handleClick={props.handleClick}
               gameStarted={props.gameStarted}
               currentPlayer={props.currentPlayer}
-              orientation={orientation}
+              orientation={props.orientation}
               shipLength={props.shipLength}
               onHover={props.checkHover}
               setShip={props.setShip}
@@ -74,9 +72,6 @@ export function GameBoardComp(props: Props): ReactElement {
 
   return (
     <div>
-      <button onClick={() => setOrientation("horizontal")}>Horizontal</button>
-      <button onClick={() => setOrientation("vertical")}>Vertical</button>
-      <h3>{orientation}</h3>
       <div className={style.root}>{grid}</div>
     </div>
   );

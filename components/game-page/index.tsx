@@ -1,9 +1,21 @@
 import lodash from "lodash";
+import Link from "next/link";
 import { ReactElement, useEffect, useState } from "react";
+import { MainButton, SecondaryButton } from "ui/buttons";
+import { SubTitle, Title } from "ui/text";
 import { GameModel } from "../../lib/models/game";
 import { GameBoardComp } from "./gameBoard";
-import { Ship1, Ship2, Ship3, Ship4, Ship5 } from "./ship";
-import styles from "./styles.module.css";
+import { SideBar } from "./sideBar";
+import {
+  BoardContainer,
+  BoardsAndSideBarContainerPlayer1,
+  BoardsAndSideBarContainerPlayer2,
+  ButtonContainer,
+  CurrentPlayerContainer,
+  FinishedGameContainer,
+  Root,
+  SideBarContainer,
+} from "./styled";
 interface Props {
   game: GameModel;
 }
@@ -33,6 +45,12 @@ export function GamePage({ game }: Props): ReactElement {
   const [currentPlayer, setCurrentPlayer] = useState<"player2" | "player1">(
     "player1"
   );
+  const [orientationPlayer1, setOrientationPlayer1] = useState<
+    "horizontal" | "vertical"
+  >("vertical");
+  const [orientationPlayer2, setOrientationPlayer2] = useState<
+    "horizontal" | "vertical"
+  >("vertical");
 
   useEffect(() => {
     setPlayer1Grid(game.player1.board.grid as any);
@@ -152,123 +170,119 @@ export function GamePage({ game }: Props): ReactElement {
     }
     if (!hitted) {
       props.player == "player1"
-        ? setCurrentPlayer("player2")
-        : setCurrentPlayer("player1");
+        ? setCurrentPlayer("player1")
+        : setCurrentPlayer("player2");
     }
   }
 
   return (
     <>
       {gameFinished ? (
-        <div
-          style={{
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            height: "100%",
-            zIndex: "99",
-            backgroundColor: `rgba(0, 0, 0, 0.2)`,
-          }}
-        >
-          <h1 style={{ color: "white" }}>Juego terminado!</h1>
-        </div>
+        <FinishedGameContainer>
+          <Title>Winner:</Title>
+          <SubTitle>
+            {" "}
+            {currentPlayer == "player1" ? game.player1.name : game.player2.name}
+          </SubTitle>
+          <Link href={"/"}>
+            <ButtonContainer>
+              <MainButton>Inicio</MainButton>
+            </ButtonContainer>
+          </Link>
+        </FinishedGameContainer>
       ) : null}
-      <div className={styles.root}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: "10px",
-          }}
-        >
-          {!shipsSettedPlayer1.includes(5) ? (
-            <Ship1 setLength={setSelectedShipLength}></Ship1>
-          ) : null}
-          {!shipsSettedPlayer1.includes(4) ? (
-            <Ship2 setLength={setSelectedShipLength}></Ship2>
-          ) : null}
-          {!shipsSettedPlayer1.includes(3) ? (
-            <Ship3 setLength={setSelectedShipLength}></Ship3>
-          ) : null}
-          {!shipsSettedPlayer1.includes(2) ? (
-            <Ship4 setLength={setSelectedShipLength}></Ship4>
-          ) : null}
-          {!shipsSettedPlayer1.includes(1) ? (
-            <Ship5 setLength={setSelectedShipLength}></Ship5>
-          ) : null}
-        </div>
-        <div>
-          <h2>{game.player1.name}</h2>
-          <GameBoardComp
-            handleClick={handleCaseClick}
-            gameStarted={gameStarted}
-            currentPlayer={currentPlayer}
-            shipLength={selectedShipLength}
-            checkHover={checkHover}
-            player="player1"
-            grid={player1Grid}
-            setShip={setShip}
-          ></GameBoardComp>
-          <button
-            disabled={
-              shipsSettedPlayer1.length == 5 && currentPlayer == "player1"
-                ? false
-                : true
-            }
-            onClick={() => handleNext("player1")}
-          >
-            next
-          </button>
-        </div>
-        {currentPlayer == "player2" ? (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: "10px",
-            }}
-          >
-            {!shipsSettedPlayer2.includes(5) ? (
-              <Ship1 setLength={setSelectedShipLength}></Ship1>
-            ) : null}
-            {!shipsSettedPlayer2.includes(4) ? (
-              <Ship2 setLength={setSelectedShipLength}></Ship2>
-            ) : null}
-            {!shipsSettedPlayer2.includes(3) ? (
-              <Ship3 setLength={setSelectedShipLength}></Ship3>
-            ) : null}
-            {!shipsSettedPlayer2.includes(2) ? (
-              <Ship4 setLength={setSelectedShipLength}></Ship4>
-            ) : null}
-            {!shipsSettedPlayer2.includes(1) ? (
-              <Ship5 setLength={setSelectedShipLength}></Ship5>
-            ) : null}
-          </div>
+
+      <Root>
+        <BoardsAndSideBarContainerPlayer1>
+          <SideBarContainer>
+            <SideBar
+              currentPlayer={currentPlayer}
+              orientation={orientationPlayer1}
+              setOrientation={setOrientationPlayer1}
+              setLength={setSelectedShipLength}
+              player="player1"
+              shipsSetted={shipsSettedPlayer1}
+            ></SideBar>
+          </SideBarContainer>
+          <BoardContainer>
+            <h2>{game.player1.name}</h2>
+            <GameBoardComp
+              orientation={orientationPlayer1}
+              handleClick={handleCaseClick}
+              gameStarted={gameStarted}
+              currentPlayer={currentPlayer}
+              shipLength={selectedShipLength}
+              checkHover={checkHover}
+              player="player1"
+              grid={player1Grid}
+              setShip={setShip}
+            ></GameBoardComp>
+            <ButtonContainer>
+              {gameStarted ? null : (
+                <SecondaryButton
+                  player="player1"
+                  disabled={
+                    shipsSettedPlayer1.length == 5 && currentPlayer == "player1"
+                      ? false
+                      : true
+                  }
+                  onClick={() => handleNext("player1")}
+                >
+                  Set ships
+                </SecondaryButton>
+              )}
+            </ButtonContainer>
+          </BoardContainer>
+        </BoardsAndSideBarContainerPlayer1>
+
+        <BoardsAndSideBarContainerPlayer2>
+          <BoardContainer>
+            <h2>{game.player2.name}</h2>
+            <GameBoardComp
+              orientation={orientationPlayer2}
+              handleClick={handleCaseClick}
+              gameStarted={gameStarted}
+              currentPlayer={currentPlayer}
+              shipLength={selectedShipLength}
+              checkHover={checkHover}
+              player="player2"
+              grid={player2Grid}
+              setShip={setShip}
+            ></GameBoardComp>
+            <ButtonContainer>
+              {gameStarted ? null : (
+                <SecondaryButton
+                  player="player2"
+                  disabled={shipsSettedPlayer2.length == 5 ? false : true}
+                  onClick={() => handleNext("player2")}
+                >
+                  Set ships
+                </SecondaryButton>
+              )}
+            </ButtonContainer>
+          </BoardContainer>
+          <SideBarContainer>
+            <SideBar
+              currentPlayer={currentPlayer}
+              orientation={orientationPlayer2}
+              setOrientation={setOrientationPlayer2}
+              setLength={setSelectedShipLength}
+              player="player2"
+              shipsSetted={shipsSettedPlayer2}
+            ></SideBar>
+          </SideBarContainer>
+        </BoardsAndSideBarContainerPlayer2>
+        {gameStarted ? (
+          <CurrentPlayerContainer>
+            <h1>
+              Turn:{" "}
+              {currentPlayer == "player1"
+                ? game.player1.name
+                : game.player2.name}
+            </h1>
+          </CurrentPlayerContainer>
         ) : null}
-        <div>
-          <h2>{game.player2.name}</h2>
-          <GameBoardComp
-            handleClick={handleCaseClick}
-            gameStarted={gameStarted}
-            currentPlayer={currentPlayer}
-            shipLength={selectedShipLength}
-            checkHover={checkHover}
-            player="player2"
-            grid={player2Grid}
-            setShip={setShip}
-          ></GameBoardComp>
-          <button
-            disabled={shipsSettedPlayer2.length == 5 ? false : true}
-            onClick={() => handleNext("player2")}
-          >
-            next
-          </button>
-        </div>
-      </div>
+      </Root>
     </>
   );
 }
