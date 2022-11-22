@@ -1,6 +1,5 @@
 import { GameModel } from "./game";
 import { PlayerModel } from "./player";
-import { ShipModel } from "./ship";
 
 test("GameModel get player1", () => {
   const game = new GameModel({
@@ -54,24 +53,28 @@ test("GameModel Player1 shipsSetted", () => {
     y: 2,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(game.player1.board.grid).toContainEqual({
     x: 1,
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(game.player1.board.grid).toContainEqual({
     x: 5,
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(game.player1.board.grid).toContainEqual({
     x: 1,
     y: 8,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
 });
 test("GameModel Player2 shipsSetted", () => {
@@ -108,24 +111,28 @@ test("GameModel Player2 shipsSetted", () => {
     y: 2,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(game.player2.board.grid).toContainEqual({
     x: 1,
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(game.player2.board.grid).toContainEqual({
     x: 5,
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(game.player2.board.grid).toContainEqual({
     x: 1,
     y: 8,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
 });
 test("GameModel nextPlayer", () => {

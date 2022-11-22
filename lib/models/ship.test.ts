@@ -8,7 +8,7 @@ const testShip = new ShipModel({
   ],
   id: "1",
   length: 3,
-  hits: 3,
+  hits: 2,
   sunk: false,
 });
 const testShip2 = new ShipModel({
@@ -18,16 +18,12 @@ const testShip2 = new ShipModel({
     { x: 3, y: 3 },
   ],
   id: "2",
-  length: 3,
+  length: 4,
   hits: 2,
   sunk: false,
 });
-test("ShipModel isSunkMethod (ship shunk)", () => {
-  expect(testShip.isSunk()).toBe(true);
-});
-test("ShipModel isSunkMethod (ship notSunk)", () => {
-  expect(testShip2.isSunk()).toBe(false);
-});
 test("ShipModel hitMethod", () => {
-  expect(testShip2.hit()).toBe(3);
+  testShip2.hit();
+  expect(testShip2.hits).toBe(3);
+  expect(testShip2.hit()).toBe(true);
 });

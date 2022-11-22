@@ -53,18 +53,21 @@ test("GameBoardModel setNewShip one ship", () => {
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(gameBoard.grid).toContainEqual({
     x: 2,
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(gameBoard.grid).toContainEqual({
     x: 3,
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
 
   expect(gameBoard.ships).toContainEqual(
@@ -90,6 +93,7 @@ test("GameBoardModel setNewShip two ships with overlap", () => {
     orientation: "horizontal",
     nanoId: () => "123",
   });
+
   expect(
     gameBoard.setNewShip({
       coords: { x: 5, y: 1 },
@@ -112,18 +116,21 @@ test("GameBoardModel setNewShip two ships without overlap", () => {
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(gameBoard.grid).toContainEqual({
     x: 2,
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(gameBoard.grid).toContainEqual({
     x: 3,
     y: 1,
     shipId: "123",
     isHitted: false,
+    type: 2,
   });
   expect(res).toBe(true);
 });
@@ -142,6 +149,7 @@ test("GameBoardModel receiveAttack", () => {
     y: 1,
     isHitted: true,
     shipId: "123",
+    type: 3,
   });
   const shipHitted = gameBoard.ships.find((ship) => ship.id === "123");
   expect(shipHitted?.hits).toBe(1);

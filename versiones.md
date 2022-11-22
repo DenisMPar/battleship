@@ -9,3 +9,7 @@ Creados los componentes y agregada toda la lógica de drag and drop del player 1
 version beta 1.4
 Agregada la logica de drag and drop de player 2, y agregada las funciones de ataque y chequeo del estado del juego.
 agregados los estilos iniciales en el home y el lobby
+version beta 1.0
+Agregada todos los estilos faltantes y la lógica
+bersion beta 1.1
+fixed some test
