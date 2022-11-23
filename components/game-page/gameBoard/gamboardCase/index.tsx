@@ -82,7 +82,6 @@ export function GameBoardCase(props: Props) {
     <CaseStyled
       player={props.player}
       type={props.type}
-      draggable={false}
       onClick={handleClick}
       onDragEnter={(e) => {
         handleDragEnter(e);

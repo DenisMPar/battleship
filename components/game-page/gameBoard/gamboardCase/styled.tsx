@@ -30,6 +30,13 @@ export const CaseStyled = styled.div<Props>`
     };
     return caseTypes[props.type];
   }};
+  background: ${(props) => {
+    return props.player == "player1" && props.type == 5
+      ? "repeating-linear-gradient( 45deg, #BD3535, #BD3535 5px, hsla(0, 56%, 32%, 0.6) 5px, hsla(0, 56%, 32%, 0.6) 10px )"
+      : props.player == "player2" && props.type == 5
+      ? "repeating-linear-gradient( 45deg, #2ba4f0c2, #2ba4f0c2 5px, hsla(203, 87%, 55%, 0.4) 5px, hsla(203, 87%, 55%, 0.4) 10px );"
+      : "";
+  }};
   position: relative;
   width: 100%;
   height: 100%;
