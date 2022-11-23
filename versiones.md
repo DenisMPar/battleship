@@ -11,5 +11,9 @@ Agregada la logica de drag and drop de player 2, y agregada las funciones de ata
 agregados los estilos iniciales en el home y el lobby
 version beta 1.0
 Agregada todos los estilos faltantes y la lógica
-bersion beta 1.1
+version 1.1
 fixed some test
+version 1.2
+agregado un nuevo background para los barcos hundidos
+version 1.2b
+Arreglado el tamaño del boton inicio en la pantalla del ganador

@@ -34,6 +34,11 @@ export const ButtonContainer = styled.div`
   max-width: 115px;
   margin: 0 auto;
 `;
+export const WinnerButtonContainer = styled.div`
+  width: 100%;
+  max-width: 225px;
+  margin: 0 auto;
+`;
 export const CurrentPlayerContainer = styled.div`
   display: flex;
   align-items: center;

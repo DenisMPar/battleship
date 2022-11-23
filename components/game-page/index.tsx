@@ -15,6 +15,7 @@ import {
   FinishedGameContainer,
   Root,
   SideBarContainer,
+  WinnerButtonContainer,
 } from "./styled";
 interface Props {
   game: GameModel;
@@ -185,9 +186,9 @@ export function GamePage({ game }: Props): ReactElement {
             {currentPlayer == "player1" ? game.player1.name : game.player2.name}
           </SubTitle>
           <Link href={"/"}>
-            <ButtonContainer>
+            <WinnerButtonContainer>
               <MainButton>Inicio</MainButton>
-            </ButtonContainer>
+            </WinnerButtonContainer>
           </Link>
         </FinishedGameContainer>
       ) : null}
