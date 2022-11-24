@@ -17,3 +17,5 @@ version 1.2
 agregado un nuevo background para los barcos hundidos
 version 1.2b
 Arreglado el tamaño del boton inicio en la pantalla del ganador
+version 1.2c
+cambio en el button del lobby a ingles, cambio en el secondary dark color, agregado la leyenda "place your ships" en el game board

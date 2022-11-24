@@ -8,6 +8,7 @@ import { GameBoardComp } from "./gameBoard";
 import { SideBar } from "./sideBar";
 import {
   BoardContainer,
+  BoardFooterContainer,
   BoardsAndSideBarContainerPlayer1,
   BoardsAndSideBarContainerPlayer2,
   ButtonContainer,
@@ -207,6 +208,7 @@ export function GamePage({ game }: Props): ReactElement {
           </SideBarContainer>
           <BoardContainer>
             <h2>{game.player1.name}</h2>
+
             <GameBoardComp
               orientation={orientationPlayer1}
               handleClick={handleCaseClick}
@@ -218,21 +220,29 @@ export function GamePage({ game }: Props): ReactElement {
               grid={player1Grid}
               setShip={setShip}
             ></GameBoardComp>
-            <ButtonContainer>
-              {gameStarted ? null : (
-                <SecondaryButton
-                  player="player1"
-                  disabled={
-                    shipsSettedPlayer1.length == 5 && currentPlayer == "player1"
-                      ? false
-                      : true
-                  }
-                  onClick={() => handleNext("player1")}
-                >
-                  Set ships
-                </SecondaryButton>
-              )}
-            </ButtonContainer>
+            {gameStarted ? null : (
+              <BoardFooterContainer>
+                {currentPlayer == "player1" ? (
+                  <p style={{ margin: "0" }}>Place your ships.</p>
+                ) : (
+                  <p style={{ margin: "10px" }}></p>
+                )}
+                <ButtonContainer>
+                  <SecondaryButton
+                    player="player1"
+                    disabled={
+                      shipsSettedPlayer1.length == 5 &&
+                      currentPlayer == "player1"
+                        ? false
+                        : true
+                    }
+                    onClick={() => handleNext("player1")}
+                  >
+                    Next
+                  </SecondaryButton>
+                </ButtonContainer>
+              </BoardFooterContainer>
+            )}
           </BoardContainer>
         </BoardsAndSideBarContainerPlayer1>
 
@@ -250,17 +260,24 @@ export function GamePage({ game }: Props): ReactElement {
               grid={player2Grid}
               setShip={setShip}
             ></GameBoardComp>
-            <ButtonContainer>
-              {gameStarted ? null : (
-                <SecondaryButton
-                  player="player2"
-                  disabled={shipsSettedPlayer2.length == 5 ? false : true}
-                  onClick={() => handleNext("player2")}
-                >
-                  Set ships
-                </SecondaryButton>
-              )}
-            </ButtonContainer>
+            {gameStarted ? null : (
+              <BoardFooterContainer>
+                {currentPlayer == "player2" ? (
+                  <p style={{ margin: "0" }}>Place your ships.</p>
+                ) : (
+                  <p style={{ margin: "10px" }}></p>
+                )}
+                <ButtonContainer>
+                  <SecondaryButton
+                    player="player2"
+                    disabled={shipsSettedPlayer2.length == 5 ? false : true}
+                    onClick={() => handleNext("player2")}
+                  >
+                    Next
+                  </SecondaryButton>
+                </ButtonContainer>
+              </BoardFooterContainer>
+            )}
           </BoardContainer>
           <SideBarContainer>
             <SideBar

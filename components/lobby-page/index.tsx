@@ -28,7 +28,7 @@ export function Lobby(): ReactElement {
           <Input type={"text"} name={"player2Name"} required={true}></Input>
           <br />
           <ButtonContainer>
-            <MainButton>Iniciar</MainButton>
+            <MainButton>Start</MainButton>
           </ButtonContainer>
         </Form>
       </MainContainer>

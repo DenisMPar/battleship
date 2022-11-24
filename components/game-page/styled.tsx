@@ -29,6 +29,14 @@ export const BoardContainer = styled.div`
   text-align: center;
   gap: 29px;
 `;
+export const BoardFooterContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 84px;
+  margin: 0 auto;
+`;
 export const ButtonContainer = styled.div`
   width: 100%;
   max-width: 115px;
@@ -56,5 +64,6 @@ export const FinishedGameContainer = styled.div`
   width: 100%;
   height: 100%;
   z-index: 99;
+  gap: 60px;
   background-color: var(--bg);
 `;
