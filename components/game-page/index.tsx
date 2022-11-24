@@ -188,7 +188,7 @@ export function GamePage({ game }: Props): ReactElement {
           </SubTitle>
           <Link href={"/"}>
             <WinnerButtonContainer>
-              <MainButton>Inicio</MainButton>
+              <MainButton>Home</MainButton>
             </WinnerButtonContainer>
           </Link>
         </FinishedGameContainer>
